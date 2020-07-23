@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
         back_pressed = System.currentTimeMillis();
     }
-    
+
     public void printResult(Site site) {
         if (site.childrens.isEmpty()){
 
