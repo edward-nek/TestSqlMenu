@@ -12,6 +12,7 @@ public class Site {
     private int parent;
     public ArrayList<Site> childrens;
     int level = 0;
+    String path = "";
 
     public Site(int id, String name, String alias, int parent) {
         this.id = id;

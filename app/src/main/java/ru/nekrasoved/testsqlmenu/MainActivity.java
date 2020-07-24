@@ -84,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
                 //end input data
                 Toast.makeText(getBaseContext(), "Данные отправлены на сервер!",
                         Toast.LENGTH_SHORT).show();
+
+                textResultA = "type_a.txt \n\n";
+                textResultB = "type_b.txt \n\n";
+
+                SendRequest sendRequest = new SendRequest();
+                sendRequest.execute("http://68.183.179.47/get_all_data_menu.php");
             }
         });
 
@@ -212,32 +218,38 @@ public class MainActivity extends AppCompatActivity {
     public void printResult(Site site) {
         if (site.childrens.isEmpty()){
 
-            for (int l = 0; l < site.childrens.size(); l++){
-                site.childrens.get(l).level = site.level+1;
+            for (int l = 0; l < site.childrens.size(); l++)
+            {
+                site.childrens.get(l).level = site.level + 1;
+
+                site.childrens.get(l).path = site.path + "/" + site.childrens.get(l).getAlias();
             }
             space = "";
             for (int l = 0; l < site.level; l++){
-                space += "  ";
+                space += "    ";
             }
 
             Log.d("printResultSend", space + site.getName() + " " + site.getAlias());
 
-            textResultA += space + site.getName() + " " + site.getAlias() + "\n";
+            textResultA += space + site.getName() + " " + site.path + "\n";
         }
         else{
 
-            for (int l = 0; l < site.childrens.size(); l++){
-                site.childrens.get(l).level = site.level+1;
+            for (int l = 0; l < site.childrens.size(); l++)
+            {
+                site.childrens.get(l).level = site.level + 1;
+
+                site.childrens.get(l).path = site.path + "/" + site.childrens.get(l).getAlias();
             }
             space = "";
             for (int l = 0; l < site.level; l++){
-                space += "  ";
+                space += "    ";
             }
 
             Log.d("printResultSend", space + site.getName() + " " + site.getAlias());
 
-            textResultA += space + site.getName() + " " + site.getAlias() + "\n";
-            space += "  ";
+            textResultA += space + site.getName() + " " + site.path + "\n";
+            space += "    ";
             for (int i = 0; i < site.childrens.size(); i++){
                 printResult(site.childrens.get(i));
             }
@@ -279,8 +291,14 @@ public class MainActivity extends AppCompatActivity {
 
             answer.menu_site.get(k).level = 0;
 
-            for (int l = 0; l < answer.menu_site.get(k).childrens.size(); l++){
+            answer.menu_site.get(k).path = "/" + answer.menu_site.get(k).getAlias();
+
+            for (int l = 0; l < answer.menu_site.get(k).childrens.size(); l++)
+            {
                 answer.menu_site.get(k).childrens.get(l).level = 1;
+
+                answer.menu_site.get(k).childrens.get(l).path = answer.menu_site.get(k).path +
+                        "/" + answer.menu_site.get(k).childrens.get(l).getAlias();
             }
 
             printResult(answer.menu_site.get(k));
@@ -292,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
         while (i < answer.menu_site.size()){
             textResultB += answer.menu_site.get(i).getName() + "\n";
             for (int j = 0; j < answer.menu_site.get(i).childrens.size(); j++){
-                textResultB += "  " + answer.menu_site.get(i).childrens.get(j).getName() + "\n";
+                textResultB += "    " + answer.menu_site.get(i).childrens.get(j).getName() + "\n";
             }
             i++;
         }
