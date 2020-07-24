@@ -93,19 +93,18 @@ public class AddData extends AppCompatActivity {
                             }
                         }
 
-//                    String JSONObj = new Gson().toJson(id);
+                    sendRequest.execute("http://68.183.179.47/create_data.php", dataSite.getString());
 
-                        sendRequest.execute("http://68.183.179.47/create_data.php", dataSite.getString());
+                    Intent intent = new Intent(AddData.this, MainActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(0, 0);
+                    finish();
 
                 }
                 else
                 {
                     Toast.makeText(AddData.this, "Для начала заполните поля", Toast.LENGTH_LONG).show();
                 }
-                Intent intent = new Intent(AddData.this, MainActivity.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0);
-                finish();
             }
         });
 
